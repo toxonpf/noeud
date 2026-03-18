@@ -1,0 +1,93 @@
+# Файл .editorconfig для C# и .NET
+root = true
+
+# Настройки для всех файлов
+[*]
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+charset = utf-8
+trim_trailing_whitespace = true
+
+# Настройки для файлов C# (*.cs)
+[*.cs]
+
+#### 1. Правила форматирования (Formatting) ####
+
+# Перенос фигурной скобки на новую строку (Allman style)
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_between_query_expression_clauses = true
+
+# Отступы
+csharp_indent_case_contents = true
+csharp_indent_switch_labels = true
+csharp_indent_labels = flush_left
+
+# Пробелы
+csharp_space_after_cast = false
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+csharp_space_between_method_call_parameter_list_parentheses = false
+csharp_space_after_comma = true
+csharp_space_before_comma = false
+csharp_space_after_dot = false
+csharp_space_before_dot = false
+
+#### 2. Стилистические правила (Code Style) ####
+
+# Использование var
+# Предпочитать var для встроенных типов (int, string и т.д.)
+dotnet_style_qualification_for_field = false:suggestion
+dotnet_style_qualification_for_property = false:suggestion
+
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_elsewhere = true:suggestion
+
+# Предпочтения языка
+csharp_prefer_braces = true:silent # Всегда использовать фигурные скобки
+csharp_style_expression_bodied_methods = false:silent
+csharp_style_expression_bodied_constructors = false:silent
+csharp_style_expression_bodied_properties = true:suggestion
+csharp_style_expression_bodied_accessors = true:suggestion
+
+# Направленность (Using)
+dotnet_separate_import_directive_groups = true
+dotnet_sort_system_directives_first = true
+
+#### 3. Правила именования (Naming Conventions) ####
+
+# Интерфейсы должны начинаться с I
+dotnet_naming_rule.interfaces_should_be_prefixed_with_i.severity = suggestion
+dotnet_naming_rule.interfaces_should_be_prefixed_with_i.symbols = interface_types
+dotnet_naming_rule.interfaces_should_be_prefixed_with_i.style = prefix_i
+
+dotnet_naming_symbols.interface_types.applicable_kinds = interface
+
+dotnet_naming_style.prefix_i.required_prefix = I
+dotnet_naming_style.prefix_i.capitalization = pascal_case
+
+# Типы (классы, структуры) - PascalCase
+dotnet_naming_rule.types_should_be_pascal_case.severity = suggestion
+dotnet_naming_rule.types_should_be_pascal_case.symbols = types
+dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case_style
+
+dotnet_naming_symbols.types.applicable_kinds = class, struct, interface, enum, delegate
+
+# Приватные поля должны начинаться с подчеркивания _camelCase
+dotnet_naming_rule.private_fields_should_start_with_underscore.severity = suggestion
+dotnet_naming_rule.private_fields_should_start_with_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_should_start_with_underscore.style = private_field_style
+
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+
+dotnet_naming_style.private_field_style.required_prefix = _
+dotnet_naming_style.private_field_style.capitalization = camel_case
+
+# Общий стиль PascalCase
+dotnet_naming_style.pascal_case_style.capitalization = pascal_case
