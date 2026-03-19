@@ -3,18 +3,133 @@
         xmlns:vm="using:Noeud.Presentation.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
         x:Class="Noeud.Presentation.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="Noeud.Presentation">
+        Icon="/Assets/img/avalonia-logo.ico"
+        Title="Noeud.Presentation"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        ExtendClientAreaChromeHints="PreferSystemChrome"
+        SystemDecorations="None"
+        Background="#222"
+        Foreground="#fff"
+        FontFamily="avares://Noeud.Presentation/Assets/Fonts/JetBrainsMono-ExtraLight.ttf#JetBrains Mono">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
+        <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Window.Styles>
 
+        <Style Selector="StackPanel.ToolsBar">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Background" Value="#383838" />
+        </Style>
+
+        <Style Selector="Grid.Header">
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Background" Value="#383838" />
+        </Style>
+
+        <Style Selector="Grid.Explorer">
+            <Setter Property="Background" Value="#383838"></Setter>
+        </Style>
+
+        <Style Selector="StackPanel.Files">
+            <Setter Property="Width" Value="250" />
+            <Setter Property="Background" Value="#272727" />
+        </Style>
+
+        <Style Selector="Grid.UnderBar">
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Background" Value="#272727" />
+            <Setter Property="Margin" Value="0,2,0,0" />
+        </Style>
+
+        <Style Selector="DockPanel.Editor">
+            <Setter Property="Background" Value="#222" />
+        </Style>
+
+        <Style Selector="Grid.ExplorerPagesBlock">
+            <Setter Property="Background" Value="#1a1a1a"></Setter>
+        </Style>
+
+        <Style Selector="Border.ExplorerPage">
+            <Setter Property="Padding" Value="10"></Setter>
+            <Setter Property="Width" Value="50"></Setter>
+
+            <Style Selector="^:nth-child(3)">
+                <Setter Property="Padding" Value="9"></Setter>
+            </Style>
+            <Style Selector="^:nth-child(4)">
+                <Setter Property="Padding" Value="7"></Setter>
+                <Setter Property="Margin" Value="0, 0, 0, 1"></Setter>
+            </Style>
+        </Style>
+
+        <Style Selector="Svg.ExplorerPageImg">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+    </Window.Styles>
+
+    <Grid Classes="Main" ColumnDefinitions="Auto, *">
+        <!-- Основной блок со всем интерфейсом -->
+
+        <StackPanel Grid.Column="0" Classes="ToolsBar">
+            <!-- Блок слева с инструментами, плагинами и тд. -->
+
+        </StackPanel>
+        <Grid Grid.Column="1" RowDefinitions="Auto, *">
+            <!-- Блок содержащий Header и основную рабочую область -->
+
+            <Grid Classes="Header" Grid.Row="0" ColumnDefinitions="Auto,Auto,Auto" PointerPressed="InputElement_OnPointerPressed">
+
+                <Grid Classes="ExplorerPagesBlock" Grid.Column="0" ColumnDefinitions="*, *, *, *">
+                    <!-- содержит кнопки для переключения между режимами проводника -->
+
+                    <Border Classes="ExplorerPage" Grid.Column="0">
+                        <Svg
+                            Classes="ExplorerPageImg"
+                            Path="avares://Noeud.Presentation/Assets/img/buttonHide.svg" />
+                    </Border>
+                    <Border Classes="ExplorerPage" Grid.Column="1">
+                        <Svg
+                            Classes="ExplorerPageImg"
+                            Path="avares://Noeud.Presentation/Assets/img/buttonExp.svg" />
+                    </Border>
+                    <Border Classes="ExplorerPage" Grid.Column="2">
+                        <Svg
+                            Classes="ExplorerPageImg"
+                            Path="avares://Noeud.Presentation/Assets/img/buttonSearch.svg" />
+                    </Border>
+                    <Border Classes="ExplorerPage" Grid.Column="3">
+                        <Svg
+                            Classes="ExplorerPageImg"
+                            Path="avares://Noeud.Presentation/Assets/img/buttonCanv.svg" />
+                    </Border>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" ColumnDefinitions="Auto, *">
+                <!-- Блок содержащий проводник и редактор -->
+
+                <Grid Classes="Explorer" Grid.Column="0" RowDefinitions="*, Auto">
+                    <!-- Блок содержащий проводник и нижний бар -->
+
+                    <StackPanel Classes="Files" Grid.Row="0">
+
+                    </StackPanel>
+                    <Grid Classes="UnderBar" Grid.Row="1">
+
+                    </Grid>
+                </Grid>
+                <DockPanel Classes="Editor" Grid.Column="1">
+
+                </DockPanel>
+            </Grid>
+        </Grid>
+    </Grid>
 </Window>
