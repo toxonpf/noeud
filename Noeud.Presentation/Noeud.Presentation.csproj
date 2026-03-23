@@ -15,6 +15,7 @@
     <ItemGroup>
         <PackageReference Include="Avalonia" Version="11.3.12" />
         <PackageReference Include="Avalonia.Desktop" Version="11.3.12" />
+        <PackageReference Include="Avalonia.Svg.Skia" Version="11.1.0" />
         <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.12" />
         <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.12" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
@@ -23,10 +24,12 @@
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+        <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.9" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Noeud.Application\Noeud.Application.csproj" />
       <ProjectReference Include="..\Noeud.Infrastructure\Noeud.Infrastructure.csproj" />
+      <ProjectReference Include="..\Noeud.Domain\Noeud.Domain.csproj" />
     </ItemGroup>
 </Project>
