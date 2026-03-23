@@ -23,7 +23,13 @@
     </Design.DataContext>
 
     <Window.Styles>
-        <Style Selector=""></Style>
+        <Style Selector="Grid.Workspace">
+            <Setter Property="Grid.Column" Value="1" />
+        </Style>
+
+        <Style Selector="Grid.ContentArea">
+            <Setter Property="Grid.Row" Value="1" />
+        </Style>
 
         <Style Selector="StackPanel.ToolsBar">
             <Setter Property="Width" Value="40" />
@@ -37,10 +43,12 @@
 
 
         <Style Selector="DockPanel.Editor">
+            <Setter Property="Grid.Column" Value="1" />
             <Setter Property="Background" Value="#222" />
         </Style>
 
         <Style Selector="Grid.ExplorerPagesBlock">
+            <Setter Property="Grid.Column" Value="0" />
             <Setter Property="Background" Value="#1a1a1a"></Setter>
         </Style>
 
@@ -48,6 +56,8 @@
             <Setter Property="Height" Value="40" />
             <Setter Property="Width" Value="50" />
             <Setter Property="Background" Value="#272727"></Setter>
+            <Setter Property="Grid.Column" Value="0" />
+            <Setter Property="IsHitTestVisible" Value="False" />
         </Style>
 
         <Style Selector="Border.ExplorerPage">
@@ -66,6 +76,7 @@
         </Style>
 
         <Style Selector="Grid.Explorer">
+            <Setter Property="Grid.Column" Value="0" />
             <Setter Property="Background" Value="#383838"></Setter>
         </Style>
 
@@ -75,12 +86,14 @@
         </Style>
 
         <Style Selector="Grid.Files">
+            <Setter Property="Grid.Row" Value="0" />
             <Setter Property="Width" Value="250" />
             <Setter Property="Background" Value="#272727" />
             <Setter Property="ClipToBounds" Value="True" />
         </Style>
 
         <Style Selector="Grid.UnderBar">
+            <Setter Property="Grid.Row" Value="1" />
             <Setter Property="Height" Value="40" />
             <Setter Property="Background" Value="#272727" />
             <Setter Property="Margin" Value="0,2,0,0" />
@@ -130,6 +143,9 @@
             <Setter Property="Height" Value="14" />
             <Setter Property="Padding" Value="0" />
             <Setter Property="Margin" Value="0" />
+            <Setter Property="Grid.Row" Value="0" />
+            <Setter Property="Grid.Column" Value="0" />
+            <Setter Property="Focusable" Value="False" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Background" Value="Transparent" />
@@ -149,6 +165,7 @@
         </Style>
 
         <Style Selector="TextBlock.ExplorerChevronGlyph">
+            <Setter Property="Text" Value="›" />
             <Setter Property="Foreground" Value="#8F8F8F" />
             <Setter Property="FontSize" Value="11" />
             <Setter Property="FontWeight" Value="Bold" />
@@ -168,11 +185,26 @@
 
         <Style Selector="Border.ExplorerGuideLine">
             <Setter Property="Width" Value="1" />
+            <Setter Property="Grid.Row" Value="1" />
+            <Setter Property="Grid.Column" Value="0" />
             <Setter Property="Background" Value="#4A4A4A" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="Margin" Value="0,0,0,0" />
             <Setter Property="Opacity" Value="0.95" />
+        </Style>
+
+        <Style Selector="Border.ExplorerNodeContainer">
+            <Setter Property="Grid.Row" Value="0" />
+            <Setter Property="Grid.Column" Value="1" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="8,4,8,4" />
+            <Setter Property="Margin" Value="0,1,0,1" />
+        </Style>
+
+        <Style Selector="ItemsPresenter.ExplorerChildrenPresenter">
+            <Setter Property="Grid.Row" Value="1" />
+            <Setter Property="Grid.Column" Value="1" />
         </Style>
 
     </Window.Styles>
@@ -184,18 +216,15 @@
             <!-- Блок слева с инструментами, плагинами и тд. -->
 
         </StackPanel>
-        <Grid Grid.Column="1" RowDefinitions="Auto, *">
+        <Grid Classes="Workspace" RowDefinitions="Auto, *">
             <!-- Блок содержащий Header и основную рабочую область -->
 
             <Grid Classes="Header" Grid.Row="0" ColumnDefinitions="Auto,Auto,Auto"
                   PointerPressed="InputElement_OnPointerPressed">
 
-                <Grid Classes="ExplorerPagesBlock" x:Name="ExplorerPagesBlock" Grid.Column="0"
-                      ColumnDefinitions="*, *, *, *">
+                <Grid Classes="ExplorerPagesBlock" x:Name="ExplorerPagesBlock" ColumnDefinitions="*, *, *, *">
                     <Border Classes="ExplorerPageSelectionIndicator"
-                            x:Name="ExplorerPageSelectionIndicator"
-                            Grid.Column="0"
-                            IsHitTestVisible="False">
+                            x:Name="ExplorerPageSelectionIndicator">
                         <!-- каретка показывающая какой режим у проводника -->
 
                         <Border.RenderTransform>
@@ -238,13 +267,13 @@
                     </Border>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="1" ColumnDefinitions="Auto, *">
+            <Grid Classes="ContentArea" ColumnDefinitions="Auto, *">
                 <!-- Блок содержащий проводник и редактор -->
 
-                <Grid Classes="Explorer" Grid.Column="0" RowDefinitions="*, Auto">
+                <Grid Classes="Explorer" RowDefinitions="*, Auto">
                     <!-- Блок содержащий проводник и нижний бар -->
 
-                    <Grid Classes="Files" Grid.Row="0" RowDefinitions="*">
+                    <Grid Classes="Files" RowDefinitions="*">
                         <StackPanel Classes="FilesExp">
                             <TreeView Classes="FilesTree"
                                       ItemsSource="{Binding ExplorerItems}"
@@ -253,23 +282,14 @@
                                     <ControlTheme TargetType="TreeViewItem">
                                         <Setter Property="Template">
                                             <ControlTemplate>
-                                                <Grid RowDefinitions="Auto,*"
-                                                      ColumnDefinitions="16,*">
+                                                <Grid Classes="ExplorerTreeItemLayout" RowDefinitions="Auto,*" ColumnDefinitions="16,*">
                                                     <ToggleButton Classes="ExplorerChevronButton"
-                                                                  Grid.Row="0"
-                                                                  Grid.Column="0"
-                                                                  Focusable="False"
                                                                   IsVisible="{ReflectionBinding Header.IsDirectory, RelativeSource={RelativeSource TemplatedParent}}"
                                                                   IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
-                                                        <TextBlock Classes="ExplorerChevronGlyph"
-                                                                   Text="›" />
+                                                        <TextBlock Classes="ExplorerChevronGlyph" />
                                                     </ToggleButton>
 
-                                                    <Border Grid.Row="0"
-                                                            Grid.Column="1"
-                                                            CornerRadius="4"
-                                                            Padding="8,4,8,4"
-                                                            Margin="0,1,0,1"
+                                                    <Border Classes="ExplorerNodeContainer"
                                                             Background="{TemplateBinding Background}">
                                                         <ContentPresenter Name="PART_HeaderPresenter"
                                                                           Content="{TemplateBinding Header}"
@@ -278,13 +298,10 @@
                                                     </Border>
 
                                                     <Border Classes="ExplorerGuideLine"
-                                                            Grid.Row="1"
-                                                            Grid.Column="0"
                                                             IsVisible="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" />
 
                                                     <ItemsPresenter Name="PART_ItemsPresenter"
-                                                                    Grid.Row="1"
-                                                                    Grid.Column="1"
+                                                                    Classes="ExplorerChildrenPresenter"
                                                                     IsVisible="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" />
                                                 </Grid>
                                             </ControlTemplate>
@@ -302,14 +319,14 @@
                             </TreeView>
                         </StackPanel>
                     </Grid>
-                    <Grid Classes="UnderBar" Grid.Row="1">
+                    <Grid Classes="UnderBar">
 
                     </Grid>
                 </Grid>
-                <DockPanel Classes="Editor" Grid.Column="1">
+                <DockPanel Classes="Editor">
 
                 </DockPanel>
             </Grid>
         </Grid>
     </Grid>
-</Window>
+</Window>п
