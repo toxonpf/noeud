@@ -4,6 +4,7 @@ using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
+using Noeud.Application;
 using Noeud.Presentation.ViewModels;
 using Noeud.Presentation.Views;
 
@@ -23,9 +24,10 @@ public partial class App : Avalonia.Application
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit.
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
+            var explorerSelectionUseCase = new ExplorerSelectionUseCase();
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = new MainWindowViewModel(explorerSelectionUseCase),
             };
         }
 

@@ -246,7 +246,9 @@
 
                     <Grid Classes="Files" Grid.Row="0" RowDefinitions="*">
                         <StackPanel Classes="FilesExp">
-                            <TreeView Classes="FilesTree" ItemsSource="{Binding ExplorerItems}">
+                            <TreeView Classes="FilesTree"
+                                      ItemsSource="{Binding ExplorerItems}"
+                                      SelectedItem="{Binding SelectedExplorerItem, Mode=TwoWay}">
                                 <TreeView.ItemContainerTheme>
                                     <ControlTheme TargetType="TreeViewItem">
                                         <Setter Property="Template">
