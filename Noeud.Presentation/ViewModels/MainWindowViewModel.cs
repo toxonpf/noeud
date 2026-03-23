@@ -22,7 +22,14 @@ public partial class MainWindowViewModel : ViewModelBase
                 return;
 
             SelectedPath = value?.FullPath;
-            _explorerSelectionUseCase.Select(SelectedPath);
+
+            if (value is null || value.IsDirectory)
+            {
+                _explorerSelectionUseCase.ClearSelection();
+                return;
+            }
+
+            _explorerSelectionUseCase.SelectFile(value.Name, value.FullPath);
         }
     }
 
