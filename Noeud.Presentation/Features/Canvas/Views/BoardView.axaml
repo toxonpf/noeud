@@ -1,0 +1,52 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Noeud.Presentation.Features.Canvas.ViewModels"
+             x:DataType="viewModels:BoardViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Noeud.Presentation.Features.Canvas.Views.BoardView">
+
+
+    <!-- Добавили серый фон для контраста и события мыши -->
+    <Border ClipToBounds="True" Background="LightGray"
+            PointerPressed="InputElement_OnPointerPressed"
+            PointerMoved="InputElement_OnPointerMoved"
+            PointerReleased="InputElement_OnPointerReleased"
+            PointerWheelChanged="InputElement_OnPointerWheelChanged">
+
+        <ItemsControl RenderTransformOrigin="0,0" ItemsSource="{Binding Items}">
+
+            <ItemsControl.Styles>
+                <Style Selector="ItemsControl > ContentPresenter"
+                       x:DataType="viewModels:CanvasItemViewModel">
+                    <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                    <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                </Style>
+            </ItemsControl.Styles>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="viewModels:CanvasItemViewModel">
+                    <Rectangle Width="{Binding Width}"
+                               Height="{Binding Height}"
+                               Fill="{Binding Color}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+            <ItemsControl.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="{Binding Zoom}" ScaleY="{Binding Zoom}"/>
+                    <TranslateTransform X="{Binding PanX}" Y="{Binding PanY}"/>
+                </TransformGroup>
+            </ItemsControl.RenderTransform>
+
+            <!-- НАСТРОЙКА КАНВАСА: Заставляем ItemsControl использовать Canvas внутри -->
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Border>
+
+</UserControl>
