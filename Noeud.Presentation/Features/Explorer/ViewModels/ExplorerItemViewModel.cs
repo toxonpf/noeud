@@ -1,6 +1,8 @@
 using System.Collections.ObjectModel;
 
-namespace Noeud.Presentation.ViewModels;
+using Noeud.Presentation.Shared.ViewModels;
+
+namespace Noeud.Presentation.Features.Explorer.ViewModels;
 
 public class ExplorerItemViewModel : ViewModelBase
 {

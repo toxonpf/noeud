@@ -1,0 +1,71 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:explorerVm="using:Noeud.Presentation.Features.Explorer.ViewModels"
+             mc:Ignorable="d"
+             x:Class="Noeud.Presentation.Features.Explorer.Views.ExplorerPanel"
+             x:DataType="explorerVm:ExplorerPanelViewModel">
+
+    <Design.DataContext>
+        <explorerVm:ExplorerPanelViewModel />
+    </Design.DataContext>
+
+    <Grid Classes="ExplorerPanel" RowDefinitions="*,Auto">
+        <Border Grid.Row="0" Classes="ExplorerFilesHost">
+            <StackPanel Classes="ExplorerFilesContent">
+                <TreeView Classes="FilesTree"
+                          ItemsSource="{Binding ExplorerItems}"
+                          SelectedItem="{Binding SelectedExplorerItem, Mode=TwoWay}">
+                    <TreeView.ItemContainerTheme>
+                        <ControlTheme TargetType="TreeViewItem">
+                            <Setter Property="Template">
+                                <ControlTemplate>
+                                    <Grid RowDefinitions="Auto,*" ColumnDefinitions="16,*">
+                                        <ToggleButton Classes="ExplorerChevronButton"
+                                                      Grid.Row="0"
+                                                      Grid.Column="0"
+                                                      IsVisible="{ReflectionBinding DataContext.IsDirectory, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                                            <TextBlock Classes="ExplorerChevronGlyph" />
+                                        </ToggleButton>
+
+                                        <Border Classes="ExplorerNodeContainer"
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Background="{TemplateBinding Background}">
+                                            <ContentPresenter Name="PART_HeaderPresenter"
+                                                              Content="{TemplateBinding Header}"
+                                                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                                              Foreground="{TemplateBinding Foreground}" />
+                                        </Border>
+
+                                        <Border Classes="ExplorerGuideLine"
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                IsVisible="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                                        Grid.Row="1"
+                                                        Grid.Column="1"
+                                                        IsVisible="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter>
+                        </ControlTheme>
+                    </TreeView.ItemContainerTheme>
+
+                    <TreeView.ItemTemplate>
+                        <TreeDataTemplate x:DataType="explorerVm:ExplorerItemViewModel"
+                                          ItemsSource="{Binding Children}">
+                            <TextBlock Classes="ExplorerNodeText"
+                                       Text="{Binding Name}" />
+                        </TreeDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1" Classes="ExplorerUnderBar" />
+    </Grid>
+</UserControl>

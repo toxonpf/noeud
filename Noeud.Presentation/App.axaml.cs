@@ -1,12 +1,13 @@
+using System.Linq;
+
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
-using System.Linq;
 using Avalonia.Markup.Xaml;
+
 using Noeud.Application;
-using Noeud.Presentation.ViewModels;
-using Noeud.Presentation.Views;
+using Noeud.Presentation.Shell;
 
 namespace Noeud.Presentation;
 
@@ -21,9 +22,8 @@ public partial class App : Avalonia.Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            // Avoid duplicate validations from both Avalonia and the CommunityToolkit.
-            // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
+
             var explorerSelectionUseCase = new ExplorerSelectionUseCase();
             desktop.MainWindow = new MainWindow
             {
@@ -36,11 +36,9 @@ public partial class App : Avalonia.Application
 
     private void DisableAvaloniaDataAnnotationValidation()
     {
-        // Get an array of plugins to remove
         var dataValidationPluginsToRemove =
             BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
 
-        // remove each entry found
         foreach (var plugin in dataValidationPluginsToRemove)
         {
             BindingPlugins.DataValidators.Remove(plugin);

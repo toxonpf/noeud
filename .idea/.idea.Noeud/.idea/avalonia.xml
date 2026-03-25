@@ -4,6 +4,8 @@
     <option name="projectPerEditor">
       <map>
         <entry key="Noeud.Presentation/App.axaml" value="Noeud.Presentation/Noeud.Presentation.csproj" />
+        <entry key="Noeud.Presentation/Features/Editor/Views/EditorPanel.axaml" value="Noeud.Presentation/Noeud.Presentation.csproj" />
+        <entry key="Noeud.Presentation/Features/Explorer/Views/ExplorerPanel.axaml" value="Noeud.Presentation/Noeud.Presentation.csproj" />
         <entry key="Noeud.Presentation/Views/MainWindow.axaml" value="Noeud.Presentation/Noeud.Presentation.csproj" />
       </map>
     </option>
