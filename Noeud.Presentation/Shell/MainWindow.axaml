@@ -22,74 +22,77 @@
         <shell:MainWindowViewModel />
     </Design.DataContext>
 
-    <Grid ColumnDefinitions="40,*">
-        <StackPanel Grid.Column="0" Classes="ToolsBar" />
+    <Grid RowDefinitions="Auto,*">
+        <Grid Grid.Row="0"
+              Classes="TitleBar"
+              ColumnDefinitions="Auto,*"
+              PointerPressed="InputElement_OnPointerPressed">
+            <Grid Grid.Column="0"
+                  x:Name="ExplorerPagesBlock"
+                  Classes="ExplorerTabsBlock"
+                  ColumnDefinitions="*,*,*,*">
+                <Border Grid.Column="0"
+                        x:Name="ExplorerPageSelectionIndicator"
+                        Classes="ExplorerTabIndicator">
+                    <Border.RenderTransform>
+                        <TranslateTransform X="0">
+                            <TranslateTransform.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Property="X"
+                                                      Duration="0:0:0.25"
+                                                      Easing="QuarticEaseOut" />
+                                </Transitions>
+                            </TranslateTransform.Transitions>
+                        </TranslateTransform>
+                    </Border.RenderTransform>
+                </Border>
 
-        <Grid Grid.Column="1" RowDefinitions="Auto,*">
-            <Grid Grid.Row="0"
-                  Classes="TitleBar"
-                  ColumnDefinitions="Auto,*"
-                  PointerPressed="InputElement_OnPointerPressed">
-                <Grid Grid.Column="0"
-                      x:Name="ExplorerPagesBlock"
-                      Classes="ExplorerTabsBlock"
-                      ColumnDefinitions="*,*,*,*">
-                    <Border Grid.Column="0"
-                            x:Name="ExplorerPageSelectionIndicator"
-                            Classes="ExplorerTabIndicator">
-                        <Border.RenderTransform>
-                            <TranslateTransform X="0">
-                                <TranslateTransform.Transitions>
-                                    <Transitions>
-                                        <DoubleTransition Property="X"
-                                                          Duration="0:0:0.25"
-                                                          Easing="QuarticEaseOut" />
-                                    </Transitions>
-                                </TranslateTransform.Transitions>
-                            </TranslateTransform>
-                        </Border.RenderTransform>
-                    </Border>
+                <Border Grid.Column="0"
+                        x:Name="ExplorerPageButtonHide"
+                        Classes="ExplorerTab"
+                        Padding="10"
+                        PointerPressed="ExplorerPageButton_OnPointerPressed">
+                    <Svg Classes="ExplorerTabIcon"
+                         Path="avares://Noeud.Presentation/Assets/Icons/buttonHide.svg" />
+                </Border>
 
-                    <Border Grid.Column="0"
-                            x:Name="ExplorerPageButtonHide"
-                            Classes="ExplorerTab"
-                            Padding="10"
-                            PointerPressed="ExplorerPageButton_OnPointerPressed">
-                        <Svg Classes="ExplorerTabIcon"
-                             Path="avares://Noeud.Presentation/Assets/Icons/buttonHide.svg" />
-                    </Border>
+                <Border Grid.Column="1"
+                        x:Name="ExplorerPageButtonExp"
+                        Classes="ExplorerTab"
+                        Padding="10"
+                        PointerPressed="ExplorerPageButton_OnPointerPressed">
+                    <Svg Classes="ExplorerTabIcon"
+                         Path="avares://Noeud.Presentation/Assets/Icons/buttonExp.svg" />
+                </Border>
 
-                    <Border Grid.Column="1"
-                            x:Name="ExplorerPageButtonExp"
-                            Classes="ExplorerTab"
-                            Padding="10"
-                            PointerPressed="ExplorerPageButton_OnPointerPressed">
-                        <Svg Classes="ExplorerTabIcon"
-                             Path="avares://Noeud.Presentation/Assets/Icons/buttonExp.svg" />
-                    </Border>
+                <Border Grid.Column="2"
+                        x:Name="ExplorerPageButtonSearch"
+                        Classes="ExplorerTab"
+                        Padding="9"
+                        PointerPressed="ExplorerPageButton_OnPointerPressed">
+                    <Svg Classes="ExplorerTabIcon"
+                         Path="avares://Noeud.Presentation/Assets/Icons/buttonSearch.svg" />
+                </Border>
 
-                    <Border Grid.Column="2"
-                            x:Name="ExplorerPageButtonSearch"
-                            Classes="ExplorerTab"
-                            Padding="9"
-                            PointerPressed="ExplorerPageButton_OnPointerPressed">
-                        <Svg Classes="ExplorerTabIcon"
-                             Path="avares://Noeud.Presentation/Assets/Icons/buttonSearch.svg" />
-                    </Border>
-
-                    <Border Grid.Column="3"
-                            x:Name="ExplorerPageButtonCanv"
-                            Classes="ExplorerTab"
-                            Padding="7"
-                            Margin="0,0,0,1"
-                            PointerPressed="ExplorerPageButton_OnPointerPressed">
-                        <Svg Classes="ExplorerTabIcon"
-                             Path="avares://Noeud.Presentation/Assets/Icons/buttonCanv.svg" />
-                    </Border>
-                </Grid>
+                <Border Grid.Column="3"
+                        x:Name="ExplorerPageButtonCanv"
+                        Classes="ExplorerTab"
+                        Padding="7"
+                        Margin="0,0,0,1"
+                        PointerPressed="ExplorerPageButton_OnPointerPressed">
+                    <Svg Classes="ExplorerTabIcon"
+                         Path="avares://Noeud.Presentation/Assets/Icons/buttonCanv.svg" />
+                </Border>
             </Grid>
+        </Grid>
 
-            <Grid Grid.Row="1"
+        <Grid Grid.Row="1"
+              ColumnDefinitions="44,*">
+            <StackPanel Grid.Column="0"
+                        x:Name="ToolsBar"
+                        Classes="ToolsBar" />
+
+            <Grid Grid.Column="1"
                   x:Name="ContentPanelsGrid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="250" />
@@ -98,9 +101,9 @@
                 </Grid.ColumnDefinitions>
 
                 <explorerViews:ExplorerPanel Grid.Column="0"
-                                            DataContext="{Binding Explorer}"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch" />
+                                             DataContext="{Binding Explorer}"
+                                             HorizontalAlignment="Stretch"
+                                             VerticalAlignment="Stretch" />
 
                 <GridSplitter Grid.Column="1"
                               Classes="ExplorerSplitter"

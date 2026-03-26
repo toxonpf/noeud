@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
@@ -54,7 +55,8 @@ public partial class MainWindow : Window
     {
         if (ContentPanelsGrid.ColumnDefinitions.Count > 0)
         {
-            ContentPanelsGrid.ColumnDefinitions[0].MinWidth = ExplorerPagesBlock.Bounds.Width;
+            var minWidth = Math.Max(0, ExplorerPagesBlock.Bounds.Width - ToolsBar.Bounds.Width);
+            ContentPanelsGrid.ColumnDefinitions[0].MinWidth = minWidth;
         }
     }
 }
