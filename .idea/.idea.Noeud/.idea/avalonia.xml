@@ -6,6 +6,9 @@
         <entry key="Noeud.Presentation/App.axaml" value="Noeud.Presentation/Noeud.Presentation.csproj" />
         <entry key="Noeud.Presentation/Features/Editor/Views/EditorPanel.axaml" value="Noeud.Presentation/Noeud.Presentation.csproj" />
         <entry key="Noeud.Presentation/Features/Explorer/Views/ExplorerPanel.axaml" value="Noeud.Presentation/Noeud.Presentation.csproj" />
+        <entry key="Noeud.Presentation/Shared/Styles/Colors.axaml" value="Noeud.Presentation/Noeud.Presentation.csproj" />
+        <entry key="Noeud.Presentation/Shared/Styles/Explorer.axaml" value="Noeud.Presentation/Noeud.Presentation.csproj" />
+        <entry key="Noeud.Presentation/Shared/Styles/Typography.axaml" value="Noeud.Presentation/Noeud.Presentation.csproj" />
         <entry key="Noeud.Presentation/Shell/MainWindow.axaml" value="Noeud.Presentation/Noeud.Presentation.csproj" />
         <entry key="Noeud.Presentation/Views/MainWindow.axaml" value="Noeud.Presentation/Noeud.Presentation.csproj" />
       </map>

@@ -22,7 +22,7 @@
         <shell:MainWindowViewModel />
     </Design.DataContext>
 
-    <Grid ColumnDefinitions="Auto,*">
+    <Grid ColumnDefinitions="40,*">
         <StackPanel Grid.Column="0" Classes="ToolsBar" />
 
         <Grid Grid.Column="1" RowDefinitions="Auto,*">
@@ -89,12 +89,28 @@
                 </Grid>
             </Grid>
 
-            <Grid Grid.Row="1" ColumnDefinitions="Auto,*">
-                <explorerViews:ExplorerPanel Grid.Column="0"
-                                            DataContext="{Binding Explorer}" />
+            <Grid Grid.Row="1"
+                  x:Name="ContentPanelsGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="6" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-                <editorViews:EditorPanel Grid.Column="1"
-                                         DataContext="{Binding Editor}" />
+                <explorerViews:ExplorerPanel Grid.Column="0"
+                                            DataContext="{Binding Explorer}"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch" />
+
+                <GridSplitter Grid.Column="1"
+                              Classes="ExplorerSplitter"
+                              ResizeDirection="Columns"
+                              ResizeBehavior="PreviousAndNext" />
+
+                <editorViews:EditorPanel Grid.Column="2"
+                                         DataContext="{Binding Editor}"
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch" />
             </Grid>
         </Grid>
     </Grid>

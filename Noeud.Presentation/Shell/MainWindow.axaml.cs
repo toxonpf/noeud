@@ -14,6 +14,7 @@ public partial class MainWindow : Window
 
         _activeTab = ExplorerPageButtonHide;
         ExplorerPagesBlock.SizeChanged += ExplorerPagesBlock_SizeChanged;
+        UpdateExplorerMinWidth();
     }
 
     private void ExplorerPageButton_OnPointerPressed(object? sender, PointerPressedEventArgs e)
@@ -38,6 +39,7 @@ public partial class MainWindow : Window
             return;
 
         transform.X = _activeTab.Bounds.X;
+        UpdateExplorerMinWidth();
     }
 
     private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
@@ -45,6 +47,14 @@ public partial class MainWindow : Window
         if (e.Source == sender && e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
         {
             BeginMoveDrag(e);
+        }
+    }
+
+    private void UpdateExplorerMinWidth()
+    {
+        if (ContentPanelsGrid.ColumnDefinitions.Count > 0)
+        {
+            ContentPanelsGrid.ColumnDefinitions[0].MinWidth = ExplorerPagesBlock.Bounds.Width;
         }
     }
 }
